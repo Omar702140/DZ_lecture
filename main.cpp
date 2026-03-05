@@ -14,11 +14,22 @@ bool isEmpty(Node<T>* head) {
 
 template <class T>
 void clearList(Node<T>*& head) {
-  
+  if (!head) {
+    return;
+  }
+  Node<T>* cur = head->next;
+  while (cur != head) {
+      Node<T>* toDel = cur;
+      cur = cur->next;
+      delete toDel;
+  }
+  delete head;
+  head = nullptr;
 }
 
 int main() {
-    Node<int>* head = nullptr;
-    std::cout << "empty=" << std::boolalpha << isEmpty(head) << "\n";
-    return 0;
+  Node<int>* head = nullptr;
+  std::cout << "empty=" << std::boolalpha << isEmpty(head) << "\n";
+  clearList(head);
+  return 0;
 }
