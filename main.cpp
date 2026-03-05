@@ -23,6 +23,7 @@ void clearList(Node<T>*& head) {
       cur = cur->next;
       delete toDel;
   }
+  //T::~T()
   delete head;
   head = nullptr;
 }
@@ -30,6 +31,7 @@ void clearList(Node<T>*& head) {
 template <class T>
 void pushBack(Node<T>*& head, const T& value) {
   Node<T>* n = new Node<T>{value, nullptr, nullptr};
+  //T::T(const T&) (копирующий конструктор)
   if (!head) {
     n->next = n;
     n->prev = n;
@@ -76,6 +78,7 @@ void popFront(Node<T>*& head) {
   newHead->prev = tail;
   head = newHead;
   delete oldHead;
+  //T::~T()
 }
 
 template <class T>
@@ -93,6 +96,7 @@ void popBack(Node<T>*& head) {
   newTail->next = head;
   head->prev = newTail;
   delete tail;
+  //T::~T()
 }
 
 template <class T>
