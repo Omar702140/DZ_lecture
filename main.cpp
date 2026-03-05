@@ -95,6 +95,49 @@ void popBack(Node<T>*& head) {
   delete tail;
 }
 
+template <class T>
+struct Iter {
+  Node<T>* head;
+  Node<T>* cur;
+  bool started;
+};
+
+template <class T>
+Iter<T> iterBegin(Node<T>* head) {
+  if (!head)  {
+    return Iter<T>{nullptr, nullptr, true};
+  }
+  return Iter<T>{head, head, false};
+}
+
+template <class T>
+bool iterIsEnd(const Iter<T>& it) {
+  return it.cur == nullptr;
+}
+
+template <class T>
+T& iterGet(Iter<T>& it) {
+  if (!it.cur) {
+    throw std::out_of_range("iterGet(): end");
+  }
+  return it.cur->val;
+}
+
+template <class T>
+void iterNext(Iter<T>& it) {
+  if (!it.cur) {
+    return;
+  }
+  it.cur = it.cur->next;
+  if (it.cur == it.head) {
+    if (it.started) { 
+      it.cur = nullptr;
+    } else {
+      it.started = true;
+    }
+  }
+}
+
 int main() {
   Node<int>* head = nullptr;
   std::cout << "\n";
