@@ -107,7 +107,7 @@ Iter<T> iterBegin(Node<T>* head) {
   if (!head)  {
     return Iter<T>{nullptr, nullptr, true};
   }
-  return Iter<T>{head, head, false};
+  return Iter<T>{head, head, true};
 }
 
 template <class T>
@@ -130,17 +130,22 @@ void iterNext(Iter<T>& it) {
   }
   it.cur = it.cur->next;
   if (it.cur == it.head) {
-    if (it.started) { 
-      it.cur = nullptr;
-    } else {
-      it.started = true;
-    }
+    it.cur = nullptr;
   }
 }
 
 int main() {
+  int a[] = {1, 2, 3, 4};
+  const int n = sizeof(a) / sizeof(a[0]);
   Node<int>* head = nullptr;
+  for (int i = 0; i < n; ++i) {
+    pushBack(head, a[i]);
+  }
+  Iter<int> it = iterBegin(head);
+  while (!iterIsEnd(it)) {
+    std::cout << iterGet(it) << " ";
+    iterNext(it);
+  }
   std::cout << "\n";
   clearList(head);
-  return 0;
 }
